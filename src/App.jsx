@@ -1,10 +1,10 @@
-import Home from "./pages/Home";
+import React from "react";
+import Layout from "./Layout";
 
 function App() {
   return (
     <>
-      <div>Image Gallery</div>
-      <Home />
+      <Layout />
     </>
   );
 }
