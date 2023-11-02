@@ -1,10 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React from "react";
-import images from "../temp";
 import ImageOverlay from "../components/ImageOverlay";
+import ImageIcon from "@mui/icons-material/Image";
 
-const Home = ({ checkedArr, setCheckedArr }) => {
-  // handle checkbox
+const Home = ({ images, checkedArr, setCheckedArr }) => {
+  // handle checkbox checked
   const handleChecked = (id) => {
     const duplicateChecker = checkedArr.find((item) => item === id);
 
@@ -22,9 +22,14 @@ const Home = ({ checkedArr, setCheckedArr }) => {
     <Box
       sx={{
         mt: "30px",
-        px: "30px",
+        px: { xs: "20px", md: "30px" },
         display: "grid",
-        gridTemplateColumns: "repeat(5, 1fr)",
+        gridTemplateColumns: {
+          xs: "repeat(2, 1fr)",
+          sm: "repeat(3, 1fr)",
+          md: "repeat(4, 1fr)",
+          lg: "repeat(5, 1fr)",
+        },
         gridGap: "16px",
       }}
     >
@@ -37,6 +42,26 @@ const Home = ({ checkedArr, setCheckedArr }) => {
           handleChecked={handleChecked}
         />
       ))}
+      <Button
+        variant="outlined"
+        sx={{
+          color: "#000000",
+          border: "1px dotted gray",
+          textTransform: "capitalize",
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          width: "150px",
+          height: "150px",
+          "&:hover": {
+            border: "1px dotted gray",
+          },
+        }}
+        component="label"
+        startIcon={<ImageIcon sx={{ color: "gray" }} />}
+      >
+        Add Images
+      </Button>
     </Box>
   );
 };

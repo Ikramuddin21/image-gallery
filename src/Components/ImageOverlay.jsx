@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
 import React from "react";
+import { Box } from "@mui/material";
 
 const ImageOverlay = ({ item, index, checkedArr, handleChecked }) => {
   return (
@@ -7,12 +7,12 @@ const ImageOverlay = ({ item, index, checkedArr, handleChecked }) => {
       sx={{
         gridColumn: index === 0 && "1 / span 2",
         gridRow: index === 0 && "1 / span 2",
+        maxWidth: index === 0 ? "316px" : "150px",
+        maxHeight: index === 0 ? "316px" : "150px",
         position: "relative",
         border: "1px solid lightgray",
         borderRadius: "5px",
         cursor: "pointer",
-        width: index === 0 ? "316px" : "150px",
-        height: index === 0 ? "316px" : "150px",
         "& .checkbox_container": {
           opacity:
             checkedArr.some((checkedItem) => checkedItem === item.id) && 1,
@@ -55,7 +55,6 @@ const ImageOverlay = ({ item, index, checkedArr, handleChecked }) => {
           id={`checkbox-${index}`}
           name={`checkbox-${item.id}`}
           value={`checkbox-${item.id}`}
-          // checked={checkedStatus}
           onChange={() => handleChecked(item.id)}
         />
       </Box>

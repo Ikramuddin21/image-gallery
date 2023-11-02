@@ -8,10 +8,11 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const Header = ({ checkedArr }) => {
+const Header = ({ checkedArr, remainingImages, setImages, setCheckedArr }) => {
   return (
     <Box>
       {!!checkedArr.length ? (
+        // show delete button & select item count
         <Box
           sx={{
             px: "30px",
@@ -36,6 +37,10 @@ const Header = ({ checkedArr }) => {
                 textDecoration: "underline",
                 background: "transparent",
               },
+            }}
+            onClick={() => {
+              setImages(remainingImages);
+              setCheckedArr([]);
             }}
           >
             Delete Files
