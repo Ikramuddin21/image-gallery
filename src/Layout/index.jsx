@@ -1,9 +1,10 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
-import Home from "../Pages/Home";
+import Home from "../pages/Home";
 
 const Layout = () => {
+  const [checkedArr, setCheckedArr] = useState([]);
   return (
     <Box
       sx={{
@@ -15,8 +16,8 @@ const Layout = () => {
         backgroundColor: "#fff",
       }}
     >
-      <Header />
-      <Home />
+      <Header checkedArr={checkedArr} />
+      <Home checkedArr={checkedArr} setCheckedArr={setCheckedArr} />
     </Box>
   );
 };

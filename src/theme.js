@@ -12,6 +12,15 @@ const theme = createTheme({
   //     main: "#FF0000",
   //   },
   // },
+  typography: {
+    h1: {
+      fontSize: "30px",
+      color: "#000000",
+    },
+    h2: {
+      fontSize: "25px",
+    },
+  },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
