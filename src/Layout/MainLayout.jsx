@@ -13,10 +13,10 @@ const MainLayout = () => {
       .then((data) => setImages(data));
   }, []);
 
-  // get images array without delete images
-  const remainingImages = images.filter((i) => {
+  // get images array without delete image
+  const remainingImages = images.filter((item) => {
     return checkedArr.every((e) => {
-      return e !== i.id;
+      return e !== item;
     });
   });
 
@@ -40,6 +40,7 @@ const MainLayout = () => {
       <Home
         checkedArr={checkedArr}
         images={images}
+        setImages={setImages}
         setCheckedArr={setCheckedArr}
       />
     </Box>

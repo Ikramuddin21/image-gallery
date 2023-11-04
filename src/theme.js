@@ -32,8 +32,6 @@ const theme = createTheme({
           justifyContent: "center",
           minHeight: "100vh",
 
-          textRendering: "optimizeSpeed",
-
           // Box sizing rules
           "*,*::before,*::after": {
             boxSizing: "border-box",

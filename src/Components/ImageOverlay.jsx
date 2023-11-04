@@ -1,34 +1,42 @@
 import React from "react";
 import { Box } from "@mui/material";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 const ImageOverlay = ({ item, index, checkedArr, handleChecked }) => {
+  // dnd kit sortable
+  const sortable = useSortable({ id: item });
+  const { attributes, listeners, setNodeRef, transform, transition } = sortable;
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   return (
     <Box
       sx={{
         gridColumn: index === 0 && "1 / span 2",
         gridRow: index === 0 && "1 / span 2",
-        maxWidth: index === 0 ? "316px" : "150px",
-        maxHeight: index === 0 ? "316px" : "150px",
+        width: index === 0 ? "316px" : "150px",
+        height: index === 0 ? "316px" : "150px",
         position: "relative",
-        border: "1px solid lightgray",
         borderRadius: "5px",
         cursor: "pointer",
-        "& .checkbox_container": {
-          opacity:
-            checkedArr.some((checkedItem) => checkedItem === item.id) && 1,
-          backgroundColor:
-            checkedArr.some((checkedItem) => checkedItem === item.id) &&
-            "rgba(238, 239, 239, 0.463)",
-        },
+
         "&:hover": {
-          "& .checkbox_container": {
+          "& .overlay_box": {
+            opacity: 1,
+          },
+          "& input": {
             opacity: 1,
           },
         },
       }}
     >
-      {/* hover show checkbox area */}
+      {/* hover show image overlay */}
       <Box
+        {...listeners}
         sx={{
           position: "absolute",
           transition: "0.5s",
@@ -36,39 +44,59 @@ const ImageOverlay = ({ item, index, checkedArr, handleChecked }) => {
           left: 0,
           width: 1,
           height: 1,
-          opacity: 0,
           borderRadius: "5px",
-          backgroundColor: "rgba(18, 18, 18, 0.61)",
+          opacity: {
+            xs: checkedArr?.some((checkedItem) => checkedItem === item) ? 1 : 1,
+            md: checkedArr?.some((checkedItem) => checkedItem === item) ? 1 : 0,
+          },
+          backgroundColor: checkedArr?.some(
+            (checkedItem) => checkedItem === item
+          )
+            ? "rgba(238, 239, 239, 0.463)"
+            : "rgba(18, 18, 18, 0.61)",
         }}
-        className="checkbox_container"
-      >
-        {/* checkbox */}
-        <Box
-          component="input"
-          type="checkbox"
-          sx={{
-            mt: "20px",
-            ml: "20px",
-            cursor: "pointer",
-            transform: "scale(1.8)",
-          }}
-          id={`checkbox-${index}`}
-          name={`checkbox-${item.id}`}
-          value={`checkbox-${item.id}`}
-          onChange={() => handleChecked(item.id)}
-        />
-      </Box>
+        className="overlay_box"
+      />
+
+      {/* checkbox */}
+      <Box
+        component="input"
+        type="checkbox"
+        sx={{
+          position: "absolute",
+          transition: "0.5s",
+          opacity: {
+            xs: checkedArr?.some((checkedItem) => checkedItem === item) ? 1 : 1,
+            md: checkedArr?.some((checkedItem) => checkedItem === item) ? 1 : 0,
+          },
+          top: "20px",
+          left: "20px",
+          cursor: "pointer",
+          transform: "scale(1.8)",
+        }}
+        id={`checkbox${item}`}
+        name={`checkbox${item}`}
+        value={`checkbox${item}`}
+        checked={checkedArr?.includes(item)}
+        onChange={() => handleChecked(item)}
+      />
 
       {/* image */}
       <Box
+        ref={setNodeRef}
+        style={style}
+        {...attributes}
+        {...listeners}
         component="img"
-        src={item.image}
-        alt={`Image${item.id}`}
+        src={item}
+        alt="Image Preview"
         sx={{
           width: 1,
-          height: 1,
+          height: index === 0 ? "316px" : "150px",
+          border: "1px solid lightgray",
           borderRadius: "5px",
           objectFit: "cover",
+          transformOrigin: "0 0",
         }}
       />
     </Box>
